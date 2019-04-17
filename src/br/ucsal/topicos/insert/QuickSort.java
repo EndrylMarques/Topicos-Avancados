@@ -3,22 +3,29 @@ package br.ucsal.topicos.insert;
 import java.util.Random;
 
 class QuickSort {
+
+    public static int count;
+
     public static void main(String[] args) {
-        int vet[] = criarVetor(100);
 
-        vet = quickSort(vet, 0, vet.length - 1);
+        long start = System.currentTimeMillis();
+        double dataSize = 1024 * 1024;
 
-        for (int i = 0; i < vet.length; i++) {
+        System.out.println(executarQuickSort(1) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(executarQuickSort(10) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(executarQuickSort(100) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(executarQuickSort(1000) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
 
-            System.out.print(vet[i] + " ");
-        }
     }
 
     public static int[] quickSort(int arr[], int low, int hight) {
 
-
         if (low < hight) {
-           int pi = partion(arr, low, hight);
+            count++;
+            int pi = partion(arr, low, hight);
             quickSort(arr, low, pi - 1);
             quickSort(arr, pi + 1, hight);
         }
@@ -33,7 +40,9 @@ class QuickSort {
         int aux = 0;
 
         for (int j = low; j <= hight - 1; j++) {
+            count++;
             if (arr[j] <= pivot) {
+                count++;
                 i++;
                 aux = arr[j];
                 arr[j] = arr[i];
@@ -45,6 +54,7 @@ class QuickSort {
         arr[i + 1] = arr[hight];
         arr[hight] = aux;
 
+        count++;
         return i + 1;
     }
 
@@ -52,11 +62,23 @@ class QuickSort {
         Random rd = new Random();
         int vetor[] = new int[tamanho];
         for (int i = 0; i < vetor.length; i++) {
-            vetor[i] = rd.nextInt(10);
-            System.out.print(vetor[i] + " ");
+            vetor[i] = rd.nextInt(1000);
         }
-        System.out.println(" ");
         return vetor;
+    }
+
+    public static double executarQuickSort(int x) {
+        Double soma = 0d;
+        count = 0;
+
+        for (int i = 0; i <= x; i++) {
+
+            int vetor[] = criarVetor(1000);
+            quickSort(vetor, 0, vetor.length - 1);
+            soma += (double) count;
+        }
+
+        return soma / (double) x;
     }
 
 }

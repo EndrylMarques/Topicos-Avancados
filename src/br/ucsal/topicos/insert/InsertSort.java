@@ -7,11 +7,16 @@ class InsertSort {
     public static int count;
 
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        double dataSize = 1024 * 1024;
 
-        System.out.println(mediaInsert(1d) + "\t");
-        System.out.println(mediaInsert(10d) + "\t");
-        System.out.println(mediaInsert(100d) + "\t");
-        System.out.println(mediaInsert(1000d) + "\t");
+        System.out.println(mediaInsert(1d) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(mediaInsert(10d) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(mediaInsert(100d) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
+        start = System.currentTimeMillis();
+        System.out.println(mediaInsert(1000d) + "\t" + (System.currentTimeMillis() - start) + " " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize);
 
     }
 
